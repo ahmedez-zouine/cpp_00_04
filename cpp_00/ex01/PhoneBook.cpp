@@ -1,4 +1,4 @@
-#include "PhoneBook.hpp"
+#include "phonebook.hpp"
 
 int PhoneBook::_i = 0;
 
@@ -52,28 +52,6 @@ void PhoneBook::Search(void) const
     }
     std::cout << "++++++++++|++++++++++|++++++++++|+++++++++++" <<std::endl;
 }
-
-/*
-void PhoneBook::Search(void) const {
-    int i = 0;
-
-    std::cout << "|---------|----------|----------|----------|" << std::endl;
-    std::cout << "|  index  |first name|last name |nick name |" << std::endl;
-    std::cout << "|---------|----------|----------|----------|" << std::endl;
-    while (i < 8 && i < this->_i)
-    {
-        std::cout << "|    " << this->book[i].getInd() << "    |";
-        ft_print_string(this->book[i].getFirst());
-        std::cout << "|";
-        ft_print_string(this->book[i].getLast());
-        std::cout << "|";
-        ft_print_string(this->book[i].getNick());
-        std::cout << "|" << std::endl;
-        i++;
-    }
-    std::cout << "|---------|----------|----------|----------|" << std::endl;
-}
-*/
 
 void PhoneBook::printContact(int i) const {
     if (i > this->_i)

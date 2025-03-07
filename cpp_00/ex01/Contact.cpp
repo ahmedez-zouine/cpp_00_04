@@ -1,4 +1,4 @@
-#include "Contact.hpp"
+#include "contact.hpp"
 
 Contact::Contact(void) {
     return ;
@@ -47,31 +47,6 @@ static int	ft_check_phone(std::string nb)
 	return (1);
 }
 
-// static int         ft_is_phonenumber(std::string pn) 
-// {
-//     int i;
-    
-//     if ((!std::isdigit(pn[0]) && pn[0] != '+') || (pn[0] == '+' && !std::isdigit(pn[1])))
-//     {
-//         std::cout << "Please enter a valid number (no brackets, only '+' and digits allowed)" << std::endl;        
-//         return (false);
-//     }
-//     for (i = 1; pn[i]; i++)
-//     {
-//         if (!std::isdigit(pn[i]))
-//         {
-//             std::cout << "Please enter a valid number (no brackets, only '+' and digits allowed)" << std::endl;
-//             return (false);
-//         }
-//     }
-//     if ((pn[0] == '+' && i < 4) || i < 3)
-//     {
-//         std::cout << "Please enter a valid number (min 3 digits)" << std::endl;
-//         return (false);
-//     }
-//     return (true);
-// }
-
 void Contact::Addfone(int i)
 {
 	std::string tmp_nb;
@@ -87,20 +62,6 @@ void Contact::Addfone(int i)
 	check_empty_value("Darkest secret: ", &this->_dardsecret);
 
 }
-
-// void        Contact::init(int i) {
-//     std::string tmp_num;
-    
-//     this->_index = i;
-//     check_empty_value("Firstname: ", &this->_firstname);
-//     check_empty_value("Lastname: ", &this->_lastname);
-//     check_empty_value("Nickname: ", &this->_nickname);
-//     check_empty_value("Number: ", &tmp_num);
-//     while (!ft_is_phonenumber(tmp_num))
-//         check_empty_value("Number: ", &tmp_num);
-//     this->_phonenumber = tmp_num;
-//     check_empty_value("Darkest secret: ", &this->_dardsecret);
-// }
 
 std::string		Contact::getFirst(void) const {
 	return (this->_firstname);
