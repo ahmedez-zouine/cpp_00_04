@@ -1,5 +1,5 @@
 #ifndef HUMANB_HPP
-#define HUMANB_HPP
+# define HUMANB_HPP
 
 #include "Weapon.hpp"
 
@@ -22,5 +22,4 @@ private:
 
 };
 
-
-#endif
+#endif /* HUMANB_HPP */
