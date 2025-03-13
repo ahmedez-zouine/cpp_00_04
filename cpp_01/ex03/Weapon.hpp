@@ -19,4 +19,4 @@ private:
     std::string _type;
 };
 
-#endif /* WEAPON_HPP */
+#endif

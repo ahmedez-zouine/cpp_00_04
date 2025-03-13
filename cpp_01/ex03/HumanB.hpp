@@ -22,4 +22,4 @@ private:
 
 };
 
-#endif /* HUMANB_HPP */
+#endif

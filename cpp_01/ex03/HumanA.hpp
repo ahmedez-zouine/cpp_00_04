@@ -14,7 +14,6 @@ public:
 	Weapon &getWeapon(void) const;
 	void	setWeapon(Weapon const & weap);
 
-
 private:
 
     std::string _name;
@@ -22,4 +21,4 @@ private:
 
 };
 
-#endif /* HUMANA_HPP */
+#endif
