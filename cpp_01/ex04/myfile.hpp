@@ -3,14 +3,12 @@
 
 #include <iostream>
 
-class myfile
-{
-private:
-    /* data */
-public:
-    myfile(/* args */);
-    ~myfile();
-};
+# include <iostream>
+# include <fstream>
+# include <string>
+# include <stdlib.h>
 
+void    ft_chech_args(int ac);
+void    ft_chech_file(std::ifstream &inf);
 
 #endif

@@ -1,11 +1,21 @@
 #include "myfile.hpp"
 
-myfile::myfile()
+void    ft_chech_args(int ac)
 {
-    return ;
+    if (ac != 4)
+    {
+        std::cerr << "The arguments must be three" << std::endl;
+        exit(1);
+    }
 }
 
-myfile::~myfile()
+// For Meee 0-)
+void    ft_chech_file(std::ifstream &inf)
 {
-    return ;
+    if (inf.fail())
+    {
+        std::cerr << "The file doesn't exist or can't be readed :c" << std::endl;
+        inf.close();
+        exit(1);
+    }
 }

@@ -1,0 +1,37 @@
+#include "myfile.hpp"
+
+int main(int ac, char **av)
+{
+    ft_chech_args(ac);
+    
+    std::ifstream infile(av[1]);
+    ft_chech_file(infile);
+    std::ofstream repfile;
+    
+    size_t      pos;
+    std::string tmp = av[1];
+    std::string sin = av[2];
+    std::string sout = av[3];
+
+	if (sin[0] == '\0')
+	{
+		std::cerr << "The string to be replaced must not be empty!" << std::endl;
+		return (1);
+	}
+    tmp.append(".replace");
+    repfile.open(tmp.c_str());
+
+    while (std::getline(infile, tmp))
+    {
+        pos = tmp.find(sin, 0);
+        while (pos != tmp.npos)
+        {
+            tmp.erase(pos, sin.length());
+            tmp.insert(pos, sout);
+            pos = tmp.find(sin, 0);
+        }
+        repfile << tmp << std::endl;
+    }
+    infile.close();
+    repfile.close();
+}
