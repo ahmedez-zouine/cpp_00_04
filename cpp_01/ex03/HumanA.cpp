@@ -6,7 +6,7 @@ HumanA::~HumanA(void) {
 	return ;
 }
 
-void	HumanA::setWeapon(Weapon const & weap) {
+void	HumanA::setWeapon(Weapon const &weap) {
 	this->_weapon = weap;
 }
 

@@ -1,36 +1,26 @@
-###### VARIABLE ######
 
-NAME = zombie
-
-SRC = main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+SRC = main.cpp newZombie.cpp randomChump.cpp Zombie.cpp 
 
 OBJ = $(SRC:.cpp=.o)
 
+NAME = zombie
 CC = c++
-
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
+all: $(NAME)	
+
 %.o: %.cpp
-	@echo "$(GREEN)Compiling:$(BLUE) $< $(DEF_COLOR)"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-####### RULES ########
-
-all: $(NAME)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@echo "$(MAGENTA)Program: $(WHITE)$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(DEF_COLOR)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
-	@echo "$(MAGENTA)Program name: $(WHITE)$(NAME)$(DEF_COLOR)"
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
-	@rm -f $(OBJ)
-	@echo "$(RED)Objects removed: $(WHITE)$(OBJ)$(DEF_COLOR)"
+	rm -rf $(OBJ)
 
-fclean: clean
-	@rm -f $(NAME)
-	@echo "$(RED)Program removed: $(WHITE)$(NAME)$(DEF_COLOR)"
+fclean : clean
+	rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: clean fclean re all
