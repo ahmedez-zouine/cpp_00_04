@@ -8,7 +8,8 @@ HumanB::~HumanB(void) {
     return ;
 }
 
-void HumanB::attack(void) const {
+void HumanB::attack(void) const 
+{
     if (!this->_weapon)
         std::cout << this->_name << " is unarmed" << std::endl;
     else

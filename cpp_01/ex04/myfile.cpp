@@ -9,7 +9,6 @@ void    ft_chech_args(int ac)
     }
 }
 
-// For Meee 0-)
 void    ft_chech_file(std::ifstream &inf)
 {
     if (inf.fail())

@@ -15,7 +15,6 @@ public:
 	void	setWeapon(Weapon const & weap);
 
 private:
-
     std::string _name;
     Weapon &_weapon ;
 
