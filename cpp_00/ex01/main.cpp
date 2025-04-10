@@ -9,7 +9,7 @@ int ft_get_nb(std::string s)
         return (0);
     if (s[i] >= '1' && s[i] <= '8' && s[1] == '\0')
         return (s[i] - 48);
-    std::cout << "Please enter a number between 1 and 8 (no space)" << std::endl;
+    std::cout << "Please enter a number between 1 and 8 (no::z space)" << std::endl;
     return (-1);
 }
 
