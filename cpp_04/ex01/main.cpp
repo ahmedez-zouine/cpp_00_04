@@ -1,33 +1,60 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
+#include "Brain.hpp"
 
 int main()
 {
-    const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
-	delete(meta);
-	delete(j);
-	delete(i);
+	Cat		cat;
+	Brain 	brain("Az");
+	Dog 	dog;
 
-	std::cout << "\n------- (Wrong part!) --------\n\n";
+	std::cout << "--------< Cat's Brain test >-------" <<std::endl;
+	cat.makeSound();
+	std::cout << cat.getBrain()->getIdea() << std::endl;
+	cat.getBrain()->setIdea("I am a cat");
+	std::cout << cat.getBrain()->getIdea() << std::endl;
 
-	const WrongAnimal* wrong_meta = new WrongAnimal();
-	const WrongAnimal* wrong_i = new WrongCat();
-	std::cout << wrong_i->getType() << " " << std::endl;
-	wrong_i->makeSound();
-	wrong_meta->makeSound();
-	delete(wrong_meta);
-	delete(wrong_i);
-	return (0);
+	std::cout << "--------< Dog's Brain test >-------" <<std::endl;
+	dog.makeSound();
+	std::cout << dog.getBrain()->getIdea() << std::endl;
+	dog.getBrain()->setIdea("I am a dog");
+	std::cout << dog.getBrain()->getIdea() << std::endl;
 
-return 0;
+	std::cout << "--------< Brain test >-------" <<std::endl;
+
+	std::cout << brain.getIdea() << std::endl;
+	brain.setIdea("Who am i?");
+	std::cout << brain.getIdea() << std::endl;
+	std::cout << std::endl;
+
+	// Dog dog;
+	dog.getBrain()->setIdea("I am a dog");
+	Dog dog2(dog);
+	std::cout << dog2.getBrain()->getIdea() << std::endl;
+	std::cout << dog.getBrain()->getIdea() << std::endl;
+
+	dog2 = dog;
+	std::cout << dog2.getBrain()->getIdea() << std::endl;
+	std::cout << dog.getBrain()->getIdea() << std::endl;
+
+	dog2.getBrain()->setIdea("I am a dog2");
+	std::cout << dog2.getBrain()->getIdea() << std::endl;
+	std::cout << dog.getBrain()->getIdea() << std::endl;
+
+	// Cat cat;
+	cat.getBrain()->setIdea("I am a cat");
+	Cat cat2(cat);
+	std::cout << cat2.getBrain()->getIdea() << std::endl;
+	std::cout << cat.getBrain()->getIdea() << std::endl;
+
+	cat2 = cat;
+	std::cout << cat2.getBrain()->getIdea() << std::endl;
+	std::cout << cat.getBrain()->getIdea() << std::endl;
+
+	cat2.getBrain()->setIdea("I am a cat2");
+	std::cout << cat2.getBrain()->getIdea() << std::endl;
+	std::cout << cat.getBrain()->getIdea() << std::endl;
+
+	return 0;
 }

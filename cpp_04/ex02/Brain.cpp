@@ -22,8 +22,10 @@ Brain::Brain(std::string type)
 }
 
 Brain::Brain(const Brain &copy)
-{   
-    *this = copy;
+{
+	std::cout << "Brain's copy constructor is called" << std::endl;
+	for (size_t i = 0; i < 100; i++)
+		this->ideas[i] = copy.ideas[i];
 }
 
 

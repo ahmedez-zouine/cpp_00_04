@@ -6,7 +6,7 @@ SRC = main.cpp \
 		Dog.cpp \
 		Brain.cpp \
 
-CC = c++
+CC = clang++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g3
 
