@@ -4,9 +4,9 @@
 # include <iostream>
 # include <string>
 
-# define THOUGHT     "I think therefore I am"
-# define CAT_THOUGHT "Meow Meow !"
-# define DOG_THOUGHT "BARKS BARKS !"
+# define THOUGHT     "start thinking"
+# define CAT_THOUGHT "Cat thinking !"
+# define DOG_THOUGHT "Dog thinking !"
 
 class Brain
 {

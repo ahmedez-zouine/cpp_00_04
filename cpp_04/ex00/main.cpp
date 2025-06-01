@@ -3,6 +3,7 @@
 #include "Cat.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
+#include "WrongDog.hpp"
 
 int main()
 {
@@ -21,11 +22,15 @@ int main()
 	std::cout << "\n------- (Wrong part!) --------\n\n";
 
 	const WrongAnimal* wrong_meta = new WrongAnimal();
+	const WrongAnimal* wrong_j = new WrongDog();
 	const WrongAnimal* wrong_i = new WrongCat();
+	std::cout << wrong_j->getType() << " " << std::endl;
 	std::cout << wrong_i->getType() << " " << std::endl;
 	wrong_i->makeSound();
+	wrong_j->makeSound();
 	wrong_meta->makeSound();
 	delete(wrong_meta);
+	delete(wrong_j);
 	delete(wrong_i);
 	return (0);
 

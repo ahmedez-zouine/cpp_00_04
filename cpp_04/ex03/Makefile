@@ -1,31 +1,27 @@
-SRC = main.cpp \
-		MateriaSource.cpp \
+NAME = materia
+
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+
+SRCS = 	main.cpp \
 		AMateria.cpp \
-		Ice.cpp \
+		Character.cpp \
 		Cure.cpp \
-		Character.cpp
+		Ice.cpp \
+		MateriaSource.cpp
 
-OBJ = $(SRC:.cpp=.o)
-
-CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
-
-NAME = Materials
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-
-%.o : %.cpp 
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 clean:
-	rm -rf $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
-re : fclean all
-
-.SECONDARY : $(OBJ)
+re: fclean all
+.SECONDARY: $(OBJ)

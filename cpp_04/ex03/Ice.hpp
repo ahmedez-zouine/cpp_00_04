@@ -2,20 +2,19 @@
 #define ICE_HPP
 
 #include "AMateria.hpp"
-#include <iostream>
+#include "ICharacter.hpp"
 
 class Ice : public AMateria
 {
-    private:
-        std::string name;
-    public:
-        Ice();
-        Ice(const Ice &copy);
-        Ice& operator=(const Ice &src);
-        ~Ice();
 
-        AMateria* clone() const;
-        void use(ICharacter& target);
+public:
+    Ice();
+    Ice(const Ice &obj);
+    Ice &operator=(const Ice &obj);
+    ~Ice();
+
+    virtual AMateria* clone() const;
+    virtual void use(ICharacter &target);
 };
 
 #endif

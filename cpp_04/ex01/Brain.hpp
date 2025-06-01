@@ -4,13 +4,13 @@
 # include <iostream>
 # include <string>
 
-# define THOUGHT     "I think therefore I am"
-# define CAT_THOUGHT "Meow Meow !"
-# define DOG_THOUGHT "BARKS BARKS !"
+# define THOUGHT     "start Thinking"
+# define CAT_THOUGHT "Cat start Thinking !"
+# define DOG_THOUGHT "Dog start Thinking !"
 
 class Brain
 {
-    private :
+    protected :
         std::string ideas[100];
 
     public :

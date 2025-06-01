@@ -6,6 +6,7 @@ SRC = main.cpp \
 		Dog.cpp \
 		WrongAnimal.cpp \
 		WrongCat.cpp \
+		WrongDog.cpp \
 
 CC = c++
 
@@ -30,3 +31,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+.SECONDARY: $(OBJ)

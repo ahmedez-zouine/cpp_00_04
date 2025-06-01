@@ -1,54 +1,51 @@
 #include "Character.hpp"
-#include <iostream>
-#include <cstring>
 
-Character::Character() : name("Default"), floorMateriaCount(0)
+Character::Character()
 {
-    std::memset(inventory, 0, sizeof(inventory));
-    std::memset(floorMaterias, 0, sizeof(floorMaterias));
+    name = "Default";
+    materias[0] = NULL;
+    materias[1] = NULL;
+    materias[2] = NULL;
+    materias[3] = NULL;
 }
 
-Character::Character(const std::string& name) : name(name), floorMateriaCount(0)
+Character::Character(std::string _name)
 {
-    std::memset(inventory, 0, sizeof(inventory));
-    std::memset(floorMaterias, 0, sizeof(floorMaterias));
+    name = _name;
+    materias[0] = NULL;
+    materias[1] = NULL;
+    materias[2] = NULL;
+    materias[3] = NULL;
 }
 
-Character::Character(const Character& copy)
+Character::Character(const Character &obj)
 {
-    floorMateriaCount = 0;
-    std::memset(floorMaterias, 0, sizeof(floorMaterias));
-    *this = copy;
-}
-
-Character& Character::operator=(const Character& src)
-{
-    if (this != &src)
+    name = obj.name;
+    int i = 0;
+    while (i < 4)
     {
-        for (int i = 0; i < 4; i++)
+        materias[i] = NULL;
+        if (obj.materias[i] != NULL)
+            materias[i] = obj.materias[i]->clone();
+        i++;
+    }
+}
+
+Character &Character::operator=(const Character &obj)
+{
+    if (this != &obj)
+    {
+        name = obj.name;
+        int i = 0;
+        while (i < 4)
         {
-            delete inventory[i];
-            inventory[i] = NULL;
-        }
-        for (int i = 0; i < floorMateriaCount; i++)
-        {
-            delete floorMaterias[i];
-            floorMaterias[i] = NULL;
-        }
-        floorMateriaCount = 0;
-        name = src.name;
-        for (int i = 0; i < 4; i++)
-        {
-            if (src.inventory[i])
-                inventory[i] = src.inventory[i]->clone();
-        }
-        for (int i = 0; i < src.floorMateriaCount; i++)
-        {
-            if (floorMateriaCount < 100)
-            {
-                floorMaterias[floorMateriaCount] = src.floorMaterias[i]->clone();
-                floorMateriaCount++;
-            }
+            if (materias[i] != NULL)
+                delete materias[i];
+
+            materias[i] = NULL;
+            if (obj.materias[i] != NULL)
+                materias[i] = obj.materias[i]->clone();
+            i++;
         }
     }
     return *this;
@@ -56,53 +53,112 @@ Character& Character::operator=(const Character& src)
 
 Character::~Character()
 {
-    for (int i = 0; i < 4; i++)
+    int i = 0;
+    while (i < 4)
     {
-        delete inventory[i];
-        inventory[i] = NULL;
-    }
-    for (int i = 0; i < floorMateriaCount; i++)
-    {
-        delete floorMaterias[i];
-        floorMaterias[i] = NULL;
+        if (materias[i] != NULL)
+            delete materias[i];
+        i++;
     }
 }
 
-void Character::unequip(int idx)
-{
-    if (idx >= 0 && idx < 4 && inventory[idx])
-    {
-        if (floorMateriaCount < 100)
-        {
-            floorMaterias[floorMateriaCount] = inventory[idx];
-            floorMateriaCount++;
-            inventory[idx] = NULL;
-        }
-        else
-            std::cout << "Floor is full. Cannot unequip more Materias." << std::endl;
-    }
-}
-
-std::string const & Character::getName() const
+std::string const &Character::getName() const
 {
     return name;
 }
 
-void Character::equip(AMateria* m)
+void Character::equip(AMateria *m)
 {
-    for (int i = 0; i < 4; i++)
+    if (m == NULL)
+        return;
+
+    int i = 0;
+    while (i < 4)
     {
-        if (inventory[i] == NULL)
-        {
-            inventory[i] = m;
+        if (materias[i] == m)
             return;
-        }
+        i++;
     }
-    std::cout << "Inventory is full. Cannot equip more Materias." << std::endl;
+
+    i = 0;
+    while (i < 4)
+    {
+        if (materias[i] == NULL)
+        {
+            materias[i] = m;
+            break;
+        }
+        i++;
+    }
 }
 
-void Character::use(int idx, ICharacter& target)
+int Character::arraySize = 0;
+AMateria **Character::deletedMaterias = NULL;
+
+void Character::expandArray()
 {
-    if (idx >= 0 && idx < 4 && inventory[idx] != NULL)
-        inventory[idx]->use(target);
+    if (deletedMaterias == NULL)
+    {
+        deletedMaterias = new AMateria *[1];
+        return;
+    }
+
+    AMateria **newArray = new AMateria *[arraySize + 1];
+    for (int i = 0; i < arraySize; i++)
+    {
+        newArray[i] = deletedMaterias[i];
+    }
+
+    delete[] deletedMaterias;
+    deletedMaterias = newArray;
+}
+
+void Character::storeMateria(AMateria *m)
+{
+    if (!m)
+        return;
+
+    if (deletedMaterias == NULL)
+        expandArray();
+    else
+    {
+        for (int i = 0; i < arraySize; i++)
+        {
+            if (deletedMaterias[i] == m)
+                return;
+        }
+        expandArray();
+    }
+    deletedMaterias[arraySize++] = m;
+}
+
+void Character::cleanupMaterias()
+{
+    if (!deletedMaterias)
+        return;
+
+    for (int i = 0; i < arraySize; i++)
+    {
+        if (deletedMaterias[i])
+            delete deletedMaterias[i];
+    }
+
+    delete[] deletedMaterias;
+}
+
+void Character::unequip(int idx)
+{
+    if (idx >= 0 && idx < 4 && materias[idx] != NULL)
+    {
+        storeMateria(materias[idx]);
+        materias[idx] = NULL;
+    }
+}
+
+void Character::use(int idx, ICharacter &target)
+{
+    if (idx >= 0 && idx < 4 && materias[idx] != NULL)
+    {
+        materias[idx]->use(target);
+    }
 }

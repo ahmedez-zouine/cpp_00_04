@@ -1,28 +1,31 @@
-#ifndef CHARACTER_HPP
-# define CHARACTER_HPP
+#ifndef CHARCTER_HPP
+#define CHARCTER_HPP
 
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 
 class Character : public ICharacter
 {
-    private:
-        std::string name;
-        AMateria *inventory[4];
-        AMateria *floorMaterias[100];
-        int floorMateriaCount;
+    AMateria *materias[4];
+    std::string name;
 
-    public:
-        Character();
-        Character(const std::string &name);
-        Character(const Character &copy);
-        Character &operator=(const Character &src);
-        ~Character();
+    static AMateria **deletedMaterias;
+    static int arraySize;
 
-        std::string const & getName() const;
-        void equip(AMateria* m);
-        void unequip(int idx);
-        void use(int idx, ICharacter& target); 
+public:
+    Character();
+    Character(std::string _name);
+    Character(const Character &obj);
+    Character &operator=(const Character &obj);
+    ~Character();
+    std::string const &getName() const;
+    void equip(AMateria *m);
+    void unequip(int idx);
+    void use(int idx, ICharacter &target);
+
+    static void storeMateria(AMateria *m);
+    static void cleanupMaterias();
+    static void expandArray();
 };
 
 #endif

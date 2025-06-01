@@ -1,35 +1,41 @@
 #include "MateriaSource.hpp"
-#include "AMateria.hpp"
-#include <cstring>
 
-MateriaSource::MateriaSource() : index(0)
+MateriaSource::MateriaSource()
 {
-    // std::cout << "MateriaSource default constructor called" << std::endl;
-}
-
-MateriaSource::MateriaSource(const MateriaSource &copy)
-{
-    // std::cout << "MateriaSource copy constructor called" << std::endl;
-    *this = copy;
-}
-
-MateriaSource& MateriaSource::operator=(const MateriaSource &src)
-{
-    if (this != &src)
+    int i = 0;
+    while (i < 4)
     {
-        for (int i = 0; i < index; i++)
+        matrias[i] = NULL;
+        i++;
+    }
+}
+
+MateriaSource::MateriaSource(const MateriaSource &obj)
+{
+    int i = 0;
+    while (i < 4)
+    {
+        matrias[i] = NULL;
+        if (obj.matrias[i] != NULL)
+            matrias[i] = obj.matrias[i]->clone();
+        i++;
+    }
+}
+
+MateriaSource &MateriaSource::operator=(const MateriaSource &obj)
+{
+    if (this != &obj)
+    {
+        int i = 0;
+        while (i < 4)
         {
-            delete inventory[i];
-            inventory[i] = NULL;
-        }
-        index = 0;
-        for (int i = 0; i < src.index; i++)
-        {
-            if (index < 4)
-            {
-                inventory[index] = src.inventory[i]->clone();
-                index++;
-            }
+            if (matrias[i] != NULL)
+                delete matrias[i];
+
+            matrias[i] = NULL;
+            if (obj.matrias[i] != NULL)
+                matrias[i] = obj.matrias[i]->clone();
+            i++;
         }
     }
     return *this;
@@ -37,37 +43,50 @@ MateriaSource& MateriaSource::operator=(const MateriaSource &src)
 
 MateriaSource::~MateriaSource()
 {
-    // std::cout << "MateriaSource Destructor called" << std::endl;
-    for (int i = 0; i < index; i++)
+    int i = 0;
+    int j;
+    while (i < 4)
     {
-        delete inventory[i];
-        inventory[i] = NULL;
+        j = i + 1;
+        while (j < 4)
+        {
+            if (matrias[i] == matrias[j])
+                matrias[i] = NULL;
+            j++;
+        }
+        if (matrias[i])
+            delete matrias[i];
+        i++;
     }
 }
 
-void MateriaSource::learnMateria(AMateria* m)
+void MateriaSource::learnMateria(AMateria *m)
 {
-    if (index < 4 && m)
+    if (!m)
+        return;
+
+    int i = 0;
+    while (i < 4)
     {
-        inventory[index] = m->clone();
-        delete m;
-        index++;
+        if (matrias[i] == NULL)
+        {
+            matrias[i] = m->clone();
+            delete m;
+            return;
+        }
+        i++;
     }
-    else if (index >= 4)
-    {
-        delete m;
-        std::cout << "Full inventory" << std::endl;
-    }
+    delete m;
 }
 
-AMateria* MateriaSource::createMateria(std::string const & type)
+AMateria *MateriaSource::createMateria(std::string const &type)
 {
-    if (type != "ice" && type != "cure")
-        return 0;
     for (int i = 0; i < 4; i++)
     {
-        if (inventory[i]->getType() == type)
-            return inventory[i]->clone();
+        if (matrias[i] != NULL && matrias[i]->getType() == type)
+        {
+            return matrias[i]->clone();
+        }
     }
     return 0;
 }

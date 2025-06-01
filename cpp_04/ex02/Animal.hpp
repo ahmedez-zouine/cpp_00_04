@@ -11,7 +11,6 @@ class Animal
 	public:
 		Animal();
 		Animal(const Animal &src);
-		Animal(std::string type);
 		virtual ~Animal();
 		Animal& operator=(const Animal &src);
 
